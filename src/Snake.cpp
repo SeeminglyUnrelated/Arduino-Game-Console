@@ -30,8 +30,8 @@ void SnakeGame::updateLoop(Engine & engine)
 		scoreDisplayAmount += engine.deltaTime * 10;
 		for (int i = 0; i < min(snakeLength, (int)scoreDisplayAmount); i++)
 		{
-			int x = i % 16;
-			int y = i / 16;
+			int x = i % engine.m_totalWidth;
+			int y = i / engine.m_totalWidth;
 			engine.setPixel(x, y, true);
 		}
 		return;

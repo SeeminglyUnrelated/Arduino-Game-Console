@@ -1,21 +1,27 @@
-#include <LedControl.h>
 #include "gameEngine.h"
 #include "src/Snake.h"
 #include "src/Pong.h"
 #include "src/Game.h"
+#include "src/SpaceGame.h"
+
+const bool showStartupSequence = true;
+const int numGames = 3;
+
+int activeGameIndex = 0;
+unsigned long timeOld;
 
 Engine engine = Engine();
+Game *game = new SnakeGame();
 
-unsigned long timeOld;
-Game* game = new PongGame();
-
-void setup() {
+void setup()
+{
   Serial.begin(115200);
-  for(int index1=0;index1<engine.m_displayCount;index1++) {
-      engine.lc.shutdown(index1,false);
+
+  if (showStartupSequence)
+  {
+    startupSequence();
   }
-  engine.clearAllDisplays();
-  // startupSequence();
+
   timeOld = millis();
 }
 
@@ -30,7 +36,7 @@ void loop()
   // Update
   engine.clearAllDisplays();
   engine.updateLoop(deltaTime);
-  game->updateLoop(engine);
+  handleGames(deltaTime);
 
   // Wait for target fps
   unsigned long endTime = millis();
@@ -39,8 +45,40 @@ void loop()
   const unsigned long targetDelay = 16;
   if (frameTime < targetDelay)
   {
-      unsigned long waitForFPSTime = targetDelay - frameTime;
-      delay(waitForFPSTime);
+    unsigned long waitForFPSTime = targetDelay - frameTime;
+    delay(waitForFPSTime);
+  }
+}
+
+void handleGames(float deltaTime)
+{
+  game->updateLoop(engine);
+
+  const float switchGameButtonHoldTime = 0.75;
+  if (engine.buttonUpThisFrame && engine.buttonDownDuration > switchGameButtonHoldTime)
+  {
+    switchGame();
+  }
+}
+
+void switchGame()
+{
+  Serial.println("Switching game");
+  activeGameIndex += 1;
+  activeGameIndex %= numGames;
+  delete game;
+
+  if (activeGameIndex == 0)
+  {
+    game = new SnakeGame;
+  }
+  else if (activeGameIndex == 1)
+  {
+    game = new PongGame;
+  }
+  else if (activeGameIndex == 2)
+  {
+    game = new SpaceGame;
   }
 }
 

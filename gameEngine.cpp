@@ -1,9 +1,42 @@
 #include "gameEngine.h"
 
+Engine ::Engine()
+{
+    for (int index1 = 0; index1 < m_displayCount; index1++)
+    {
+        lc.shutdown(index1, false);
+    }
+
+    pinMode(buttonPin, INPUT);
+    digitalWrite(buttonPin, HIGH);
+    // pinMode(buzzerPin, OUTPUT);
+
+    clearAllDisplays();
+    time = 0;
+}
+
 // TODO: Make frame buffer
 void Engine::updateLoop(float deltaTime) {
     this->deltaTime = deltaTime;
     time += deltaTime;
+
+    // Button input:
+    int buttonStateOld = buttonState;
+    buttonState = !digitalRead(buttonPin);
+    buttonDown = buttonState == 1;
+    buttonDownThisFrame = buttonDown && buttonState != buttonStateOld;
+    buttonUpThisFrame = buttonState == 0 && buttonStateOld == 1;
+
+    Serial.println(!digitalRead(7));
+
+    if (buttonDownThisFrame)
+    {
+        buttonDownDuration = 0;
+    }
+    if (buttonDown)
+    {
+        buttonDownDuration += deltaTime;
+    }
 
     // Get analog stick input:
     const float inputThreshold = 0.1;

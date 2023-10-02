@@ -16,4 +16,32 @@
 # What will *not* be added
  - Collision since because of limited memory
 
-#### As of version 0.0.2
+# Documentation for engine
+
+## Public Variables
+#### Joystick structs
+
+ The joystick structs (Joystick1 and Joystick2) contain several variables
+ > `int buttonState`The current button state  
+ > `bool buttonDown` 			 If the button is pressed  
+ > `bool buttonUpThisFrame`  	 Was the button released this frame?  
+ > `bool buttonDownThisFrame`	 Was the button pressed this frame?  
+ > `float buttonDownDuration`	 How long has the button been pressed?  
+ > `float x, y`					 Joystick's current x and y positions (from -1 to +1)  
+
+Example
+
+ ```c++
+ if (engine.Joystick1.x > 0.5)
+ {
+	Serial.println("Up!");
+ }
+ ```
+
+#### Other useful information
+> `const int m_displayCount` The number of displays configured  
+> `const int m_totalWidth` The number of pixels on the x  
+> `const int deltaTime` The time in between this frame and the last few frames, averaged out  
+
+
+###### As of version 0.0.2

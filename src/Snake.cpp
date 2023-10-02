@@ -42,12 +42,12 @@ void SnakeGame::updateLoop(Engine & engine)
 	// Set next dir to whichever input axis is currently greater
 	// This dir is stored for the next time the snake moves
 	// (overwriting the value immediately would not allow preventing dir from being reversed)
-	if (engine.Joystick1x != 0 || engine.Joystick1y != 0)
+	if (engine.Joystick1.x != 0 || engine.Joystick1.y != 0)
 	{
 		// Stick is further along x axis than y axis
-		if (abs(engine.Joystick1x) > abs(engine.Joystick1y))
+		if (abs(engine.Joystick1.x) > abs(engine.Joystick1.y))
 		{
-			int inputDirX = sign(engine.Joystick1x);
+			int inputDirX = sign(engine.Joystick1.x);
 			// Dont allow dir to be reversed
 			if (inputDirX != -dirX)
 			{
@@ -58,7 +58,7 @@ void SnakeGame::updateLoop(Engine & engine)
 		// Stick is further along y axis than x axis
 		else
 		{
-			int inputDirY = sign(engine.Joystick1y);
+			int inputDirY = sign(engine.Joystick1.y);
 			// Dont allow dir to be reversed
 			if (inputDirY != -dirY)
 			{

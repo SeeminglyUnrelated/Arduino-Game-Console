@@ -32,7 +32,7 @@ void SpaceGame::updateLoop(Engine &engine)
 	elapsedTime += engine.deltaTime;
 
 	// Move player
-	playerPos.y += engine.deltaTime * playerSpeed * engine.Joystick1y;
+	playerPos.y += engine.deltaTime * playerSpeed * engine.Joystick1.y;
 	if (playerPos.y >= 8)
 	{
 		playerPos.y = 0;
@@ -51,7 +51,7 @@ void SpaceGame::updateLoop(Engine &engine)
 	engine.setPixel(playerCoordX - 1, playerCoordY + 1, true);
 
 	// Shoot
-	if (engine.buttonDownThisFrame && (elapsedTime - lastShootTime) > delayBetweenShots)
+	if (engine.Joystick1.buttonDownThisFrame && (elapsedTime - lastShootTime) > delayBetweenShots)
 	{
 		lastShootTime = elapsedTime;
 		bullets[numBullets].x = playerPos.x + 1;

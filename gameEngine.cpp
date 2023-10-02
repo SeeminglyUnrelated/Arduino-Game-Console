@@ -7,8 +7,8 @@ Engine ::Engine()
         lc.shutdown(index1, false);
     }
 
-    pinMode(buttonPin, INPUT);
-    digitalWrite(buttonPin, HIGH);
+    pinMode(buttonPin1, INPUT);
+    digitalWrite(buttonPin1, HIGH);
     // pinMode(buzzerPin, OUTPUT);
 
     clearAllDisplays();
@@ -21,53 +21,33 @@ void Engine::updateLoop(float deltaTime) {
     time += deltaTime;
 
     // Button input:
-    int buttonStateOld = buttonState;
-    buttonState = !digitalRead(buttonPin);
-    buttonDown = buttonState == 1;
-    buttonDownThisFrame = buttonDown && buttonState != buttonStateOld;
-    buttonUpThisFrame = buttonState == 0 && buttonStateOld == 1;
+    int buttonStateOld = Joystick1.buttonState;
+    Joystick1.buttonState = !digitalRead(buttonPin1); // Inverted because joystick button is active low
+    Joystick1.buttonDown = Joystick1.buttonState == 1;
+    Joystick1.buttonDownThisFrame = Joystick1.buttonDown && Joystick1.buttonState != buttonStateOld;
+    Joystick1.buttonUpThisFrame = Joystick1.buttonState == 0 && buttonStateOld == 1;
 
-    Serial.println(!digitalRead(7));
-
-    if (buttonDownThisFrame)
-    {
-        buttonDownDuration = 0;
-    }
-    if (buttonDown)
-    {
-        buttonDownDuration += deltaTime;
-    }
+    if (Joystick1.buttonDownThisFrame)
+        Joystick1.buttonDownDuration = 0;
+    if (Joystick1.buttonDown)
+        Joystick1.buttonDownDuration += deltaTime;
 
     // Get analog stick input:
     const float inputThreshold = 0.1;
-    Joystick1x = remap(analogRead(A0), 0, 1023, -1, 1);
-    Joystick1y = remap(analogRead(A1), 0, 1023, -1, 1);
-    Joystick2x = remap(analogRead(A2), 0, 1023, -1, 1);
-    Joystick2y = remap(analogRead(A3), 0, 1023, -1, 1);
+    Joystick1.x = remap(analogRead(Joystick1xPin), 0, 1023, -1, 1);
+    Joystick1.y = remap(analogRead(Joystick1yPin), 0, 1023, -1, 1);
+    Joystick2.x = remap(analogRead(Joystick2xPin), 0, 1023, -1, 1);
+    Joystick2.y = remap(analogRead(Joystick2yPin), 0, 1023, -1, 1);
 
-    // Serial.print("X: ");
-    // Serial.print(Joystick1x);
-    // Serial.print(" Y: ");
-    // Serial.print(Joystick1y);
-    // Serial.print("\n");
+    if (abs(Joystick1.x) < inputThreshold)
+        Joystick1.x = 0;
+    if (abs(Joystick1.y) < inputThreshold)
+        Joystick1.y = 0;
 
-    if (abs(Joystick1x) < inputThreshold)
-    {
-        Joystick1x = 0;
-    }
-    if (abs(Joystick1y) < inputThreshold)
-    {
-        Joystick1y = 0;
-    }
-
-    if (abs(Joystick2x) < inputThreshold)
-    {
-        Joystick2x = 0;
-    }
-    if (abs(Joystick2y) < inputThreshold)
-    {
-        Joystick2y = 0;
-    }
+    if (abs(Joystick2.x) < inputThreshold)
+        Joystick2.x = 0;
+    if (abs(Joystick2.y) < inputThreshold)
+        Joystick2.y = 0;
 }
 
 int Engine::flipMatrixIndex(int virtualIndex, int maxIndex) {

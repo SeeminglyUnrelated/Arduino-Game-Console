@@ -29,8 +29,8 @@ void PongGame::updateLoop(Engine &engine)
 		}
 
 		// Move paddles
-		paddle1y += engine.Joystick1y;
-		paddle2y += engine.Joystick2y;
+		paddle1y += engine.Joystick1.y;
+		paddle2y += engine.Joystick2.y;
 
 		// COLLISION
 		// Paddle collision with walls

@@ -14,6 +14,18 @@ Engine ::Engine()
 
     clearAllDisplays();
     time = 0;
+
+    setDisplayBrightness(4);
+}
+
+
+// set display brightness [0,15]
+void Engine :: setDisplayBrightness(int brightness) {
+	ledController.setIntensity(0, brightness);
+    ledController.setIntensity(1, brightness);
+    ledController.setIntensity(2, brightness);
+    ledController.setIntensity(3, brightness);
+    m_displayIntensity = brightness;
 }
 
 // TODO: Make frame buffer
@@ -21,7 +33,7 @@ void Engine::updateLoop(float deltaTime) {
     this->deltaTime = deltaTime;
     time += deltaTime;
 
-    // Button input:
+    // Button input joystick 1:
     int buttonStateOld = Joystick1.buttonState;
     Joystick1.buttonState = !digitalRead(buttonPin1); // Inverted because joystick button is active low
     Joystick1.buttonDown = Joystick1.buttonState == 1;
@@ -32,6 +44,18 @@ void Engine::updateLoop(float deltaTime) {
         Joystick1.buttonDownDuration = 0;
     if (Joystick1.buttonDown)
         Joystick1.buttonDownDuration += deltaTime;
+
+    // Button input joystick 2:
+    buttonStateOld = Joystick2.buttonState;
+    Joystick2.buttonState = !digitalRead(buttonPin1);
+    Joystick2.buttonDown = Joystick2.buttonState == 1;
+    Joystick2.buttonDownThisFrame = Joystick2.buttonDown && Joystick2.buttonState != buttonStateOld;
+    Joystick2.buttonUpThisFrame = Joystick2.buttonState == 0 && buttonStateOld == 1;
+
+    if (Joystick2.buttonDownThisFrame)
+        Joystick2.buttonDownDuration = 0;
+    if (Joystick2.buttonDown)
+        Joystick2.buttonDownDuration += deltaTime;
 
     // Get analog stick input:
     const float inputThreshold = 0.1;

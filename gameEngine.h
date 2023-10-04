@@ -23,6 +23,7 @@ class Engine
         } Joystick1, Joystick2;
 
         const int m_displayCount = 4, m_totalWidth = 32;
+        int m_displayIntensity = 0;
         LedControl lc = LedControl(dPin, clkPin, csPin, m_displayCount);
 
         float deltaTime;

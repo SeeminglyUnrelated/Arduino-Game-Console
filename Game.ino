@@ -37,6 +37,15 @@ void loop()
   engine.clearAllDisplays();
   engine.updateLoop(deltaTime);
   handleGames(deltaTime);
+  // Check for button 2 input (brightness button)
+  if (engine.Joystick2.buttonUpThisFrame && engine.Joystick2.buttonDownDuration > 0.25)
+  {
+    int newIntensity = engine.m_displayIntensity + 4;
+    if (newIntensity > 15) newIntensity = 1;
+    engine.setDisplayBrightness(newIntensity);
+    Serial.print("New intensity: ");
+    Serial.println(newIntensity);
+  }
 
   // Wait for target fps
   unsigned long endTime = millis();

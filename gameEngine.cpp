@@ -9,7 +9,10 @@ Engine ::Engine()
     }
 
     pinMode(buttonPin1, INPUT);
-    digitalWrite(buttonPin1, HIGH);
+    digitalWrite(buttonPin1, HIGH); // Joystick buttons must be set to active low
+
+    pinMode(buttonPin2, INPUT);
+    digitalWrite(buttonPin2, HIGH);
     // pinMode(buzzerPin, OUTPUT);
 
     clearAllDisplays();
@@ -20,11 +23,11 @@ Engine ::Engine()
 
 
 // set display brightness [0,15]
-void Engine :: setDisplayBrightness(int brightness) {
-	ledController.setIntensity(0, brightness);
-    ledController.setIntensity(1, brightness);
-    ledController.setIntensity(2, brightness);
-    ledController.setIntensity(3, brightness);
+void Engine::setDisplayBrightness(int brightness) {
+	lc.setIntensity(0, brightness);
+    lc.setIntensity(1, brightness);
+    lc.setIntensity(2, brightness);
+    lc.setIntensity(3, brightness);
     m_displayIntensity = brightness;
 }
 
@@ -47,7 +50,7 @@ void Engine::updateLoop(float deltaTime) {
 
     // Button input joystick 2:
     buttonStateOld = Joystick2.buttonState;
-    Joystick2.buttonState = !digitalRead(buttonPin1);
+    Joystick2.buttonState = !digitalRead(buttonPin2); // Inverted because joystick button is active low
     Joystick2.buttonDown = Joystick2.buttonState == 1;
     Joystick2.buttonDownThisFrame = Joystick2.buttonDown && Joystick2.buttonState != buttonStateOld;
     Joystick2.buttonUpThisFrame = Joystick2.buttonState == 0 && buttonStateOld == 1;

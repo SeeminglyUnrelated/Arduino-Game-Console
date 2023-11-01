@@ -1,10 +1,12 @@
 #pragma once
 #include "Game.h"
 #include "../gameEngine.h"
+#include "Vector2.cpp"
 
 class TetrisGame : public Game
 {
 	private:
+		std::list<Vector2> blocksList = new std::list();
 		int score; // In lines of blocks cleared
 
 		// Define the dimensions of the game board
@@ -13,6 +15,10 @@ class TetrisGame : public Game
 
 		// Define the game board as a 2D array
 		int gameBoard[BOARD_HEIGHT][BOARD_WIDTH] = {0};
+
+		void SpawnBlock();
+		void CheckLines();
+		
 
 	public:
 		TetrisGame();

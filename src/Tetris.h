@@ -6,7 +6,7 @@
 class TetrisGame : public Game
 {
 	private:
-		int board[7][31];
+		int board[8][32];
 
 		typedef struct _TAG_POSITION
 		{
@@ -42,13 +42,6 @@ class TetrisGame : public Game
 		STATUS current;
 
 		int score; // In lines of blocks cleared
-
-		// Define the dimensions of the game board
-		static const int BOARD_WIDTH = 8;
-		static const int BOARD_HEIGHT = 32;
-
-		// Define the game board as a 2D array
-		int gameBoard[BOARD_HEIGHT][BOARD_WIDTH] = {0};
 
 		bool SpawnBlock(STATUS s, bool action = false);
 		void CheckLines();

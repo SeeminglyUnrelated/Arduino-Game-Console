@@ -57,4 +57,12 @@ bool TetrisGame::SpawnBlock(STATUS s, bool action = false)
 
 void TetrisGame::Draw(Engine & engine)
 {
+	for (int[8] x : board)
+	{
+		for (int y : x)
+		{
+			if (board[x][y] == 0) {continue;}
+			engine.setPixel(x, y, true);
+		}
+	}
 }

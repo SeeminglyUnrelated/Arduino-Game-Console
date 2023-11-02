@@ -3,15 +3,16 @@
 #include "src/Pong.h"
 #include "src/Game.h"
 #include "src/SpaceGame.h"
+#include "src/Tetris.h"
 
 const bool showStartupSequence = true;
-const int numGames = 3;
+const int numGames = 4;
 
-int activeGameIndex = 0;
+int activeGameIndex = 3;
 unsigned long timeOld;
 
 Engine engine = Engine();
-Game *game = new SnakeGame();
+Game *game = new TetrisGame();
 
 void setup()
 {
@@ -88,6 +89,10 @@ void switchGame()
   else if (activeGameIndex == 2)
   {
     game = new SpaceGame;
+  }
+  else if (activeGameIndex == 3)
+  {
+    game = new TetrisGame;
   }
 }
 

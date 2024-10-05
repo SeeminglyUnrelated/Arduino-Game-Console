@@ -5,7 +5,7 @@
  I have tried to make this as flexible as possible, more updates coming soon
 
 # How to use
- If you want to trie this for yourself, you can connect the display, joysticks and buttons wherever you want and toggle some variables in gameEngine.h  
+ If you want to try this for yourself, you can connect the display, joysticks and buttons wherever you want and toggle some variables in gameEngine.h  
  Then, you can try some of the preinstalled games or make your own. As of writing, the game engine is very basic and doesn't support image buffers yet, so your eyes may hurt a bit.
 
 # Further developement
@@ -14,7 +14,7 @@
  - Image draw function that runs smoothly and effeciently
 
 # What will *not* be added
- - Collision since because of limited memory
+ - Collision because of limited memory
 
 # Documentation for engine
 

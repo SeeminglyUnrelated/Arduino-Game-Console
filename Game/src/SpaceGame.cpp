@@ -96,7 +96,7 @@ void SpaceGame::updateLoop(Engine &engine)
 	timeToNextEnemySpawn -= engine.deltaTime;
 	if (timeToNextEnemySpawn <= 0)
 	{
-		float difficultyPercent = min(1, elapsedTime / difficultyDuration);
+		float difficultyPercent = min(1.0f, elapsedTime / difficultyDuration);
 		float randomSeconds = .5;
 		float randomT = (random(randomSeconds * 10) - randomSeconds * 5) / (randomSeconds * 5);
 		timeToNextEnemySpawn = spawnDelayStart + (spawnDelayEnd - spawnDelayStart) * difficultyPercent + randomT;

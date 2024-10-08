@@ -46,12 +46,12 @@ void PongGame::updateLoop(Engine &engine)
 		// Check for ball collisions with paddles
 		if (ballX == 8 && ballY >= paddle1y && ballY < paddle1y + PADDLE_HEIGHT)
 		{
-			Serial.println("Collision with left paddle");
+			//Serial.println("Collision with left paddle");
 			ballXdir = -ballXdir; // Reverse X velocity for bouncing off left paddle
 		}
 		else if (ballX == 24 - 1 && ballY >= paddle2y && ballY < paddle2y + PADDLE_HEIGHT)
 		{
-			Serial.println("Collision with right paddle");
+			//Serial.println("Collision with right paddle");
 			ballXdir = -ballXdir; // Reverse X velocity for bouncing off right paddle
 		}
 

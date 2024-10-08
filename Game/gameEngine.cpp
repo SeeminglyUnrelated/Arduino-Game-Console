@@ -8,11 +8,15 @@ Engine ::Engine()
         lc.shutdown(index1, false);
     }
 
-    pinMode(buttonPin1, INPUT);
-    digitalWrite(buttonPin1, HIGH); // Joystick buttons must be set to active low
+    pinMode(buttonPin1, INPUT_PULLUP);
+    
+    // This doesn't work on ESP32
+    //digitalWrite(buttonPin1, HIGH); // Joystick buttons must be set to active low
 
-    pinMode(buttonPin2, INPUT);
-    digitalWrite(buttonPin2, HIGH);
+    pinMode(buttonPin2, INPUT_PULLUP);
+    
+    // This doesn't work on ESP32
+    //digitalWrite(buttonPin2, HIGH);
     // pinMode(buzzerPin, OUTPUT);
 
     clearAllDisplays();
@@ -61,11 +65,11 @@ void Engine::updateLoop(float deltaTime) {
         Joystick2.buttonDownDuration += deltaTime;
 
     // Get analog stick input:
-    const float inputThreshold = 0.1;
-    Joystick1.x = remap(analogRead(Joystick1xPin), 0, 1023, -1, 1);
-    Joystick1.y = remap(analogRead(Joystick1yPin), 0, 1023, -1, 1);
-    Joystick2.x = remap(analogRead(Joystick2xPin), 0, 1023, -1, 1);
-    Joystick2.y = remap(analogRead(Joystick2yPin), 0, 1023, -1, 1);
+    const float inputThreshold = 0.6;
+    Joystick1.x = remap(analogRead(Joystick1xPin), 0, 4095, -1, 1);
+    Joystick1.y = remap(analogRead(Joystick1yPin), 0, 4095, -1, 1);
+    Joystick2.x = remap(analogRead(Joystick2xPin), 0, 4095, -1, 1);
+    Joystick2.y = remap(analogRead(Joystick2yPin), 0, 4095, -1, 1);
 
     if (abs(Joystick1.x) < inputThreshold)
         Joystick1.x = 0;

@@ -6,10 +6,10 @@ class Engine
     private:
         const int NEUTRAL_POS = 510;
 
-        const int buttonPin1 = 2; // Joystick 1 button
-        const int buttonPin2 = 3; // Joystick 2 button // TODO: Add more buttons
-        const int dPin = 8, clkPin = 10, csPin = 9;
-        const int Joystick1xPin = A0, Joystick1yPin = A1, Joystick2xPin = A2, Joystick2yPin = A3;
+        const int buttonPin1 = 13; // Joystick 1 button Default Mapping set to switch games
+        const int buttonPin2 = 35; // Joystick 2 button Default Mapping set to switch brightness // TODO: Add more buttons
+        const int dPin = 27, clkPin = 12, csPin = 14;
+        const int Joystick1xPin = 26, Joystick1yPin = 25, Joystick2xPin = 33, Joystick2yPin = 32;
 
         int flipMatrixIndex(int virtualIndex, int maxIndex);
     public:

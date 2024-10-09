@@ -15,6 +15,11 @@ void PongGame::updateLoop(Engine &engine)
 {
 	timeSinceLastMove += engine.deltaTime;
 
+    if (player1score > 8 || player2score > 8)
+    {
+        endGame(engine);
+    }
+
 	if (timeSinceLastMove > timeBetweenMoves)
 	{
 		// Move Ball & paddles
@@ -40,7 +45,7 @@ void PongGame::updateLoop(Engine &engine)
 			paddle1y = 5;
 		if (paddle2y < 0)
 			paddle2y = 0;
-		else if (paddle2y > 7)
+		else if (paddle2y > 5)
 			paddle2y = 5;
 
 		// Check for ball collisions with paddles
@@ -87,14 +92,21 @@ void PongGame::Draw(Engine & engine)
 		engine.setPixel(8, i + paddle1y, true);
 		engine.setPixel(23, i + paddle2y, true);
 	}
+    
+    engine.drawImage(numbers[player2score], 8, 8, 25, 0);
+    engine.drawImage(numbers[player1score], 8, 8, 0, 0);
+}
 
-	// Draw Score
-	for (int i = 0; i < player2score; i++)
-	{
-		engine.lc.setRow(0, i, 0b11111111);
-	}
-	for (int i = 0; i < player1score; i++)
-	{
-		engine.lc.setRow(3, i, 0b11111111);
-	}
+void PongGame::endGame(Engine & engine)
+{
+    int x = 0;
+    for (int y = 0; y >= 32; y++)
+    {
+        engine.setPixel(x, y, true);
+        x++;
+        delay(1000);
+    }
+
+    player1score = 0;
+    player2score = 0;
 }

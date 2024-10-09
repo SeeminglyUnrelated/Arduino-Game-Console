@@ -100,30 +100,30 @@ void Engine::setPixel(int x, int y, bool state) {
     lc.setLed(realMatrixIndex, y, xWithinMatrix, state);
 }
 
-//! Commented out since it is very slow
-// void Engine::drawImage(int *pixels, int numRows, int numCols, int xPos, int yPos)
-// {
-//     for (int y = 0; y < numCols; y++)
-//     {
-//         for (int x = 0; x < numRows; x++)
-//         {
-//             // Calculate the index in the 1D array
-//             int index = y * numRows + x;
-//             if (!pixels[index]) continue; // No pixel = no need for calculations. This optimizes a lot but is dangerous and won't work if we don't clear the screen each frame
+//! WARNING: NOT RECOMMENDED TO USE EACH FRAME, IS VERY SLOW
+void Engine::drawImage(int *pixels, int numRows, int numCols, int xPos, int yPos)
+{
+    for (int y = 0; y < numCols; y++)
+    {
+        for (int x = 0; x < numRows; x++)
+        {
+            // Calculate the index in the 1D array
+            int index = y * numRows + x;
+            if (!pixels[index]) continue; // No pixel = no need for calculations. This optimizes a lot but is dangerous and won't work if we don't clear the screen each frame
 
-//             int pixelX = x + xPos;
-//             int pixelY = y + yPos;
+            int pixelX = x + xPos;
+            int pixelY = y + yPos;
 
-//             // Check if the pixel coordinates are within the display boundaries
-//             if (pixelX >= 0 && pixelX < m_totalWidth && pixelY >= 0 && pixelY < 8)
-//             {
+            // Check if the pixel coordinates are within the display boundaries
+            if (pixelX >= 0 && pixelX < m_totalWidth && pixelY >= 0 && pixelY < 8)
+            {
 
-//                 // Set the pixel on the LED matrix using the setPixel method
-//                 setPixel(pixelX, pixelY, true); // The pixel cannot be 0 because of the check earlier.
-//             }
-//         }
-//     }
-// }
+                // Set the pixel on the LED matrix using the setPixel method
+                setPixel(pixelX, pixelY, true); // The pixel cannot be 0 because of the check earlier.
+            }
+        }
+    }
+}
 
 void Engine::clearAllDisplays()
 {

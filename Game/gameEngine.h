@@ -32,7 +32,7 @@ class Engine
         Engine();
         void updateLoop(float deltaTime);
         void setPixel(int x, int y, bool state);
-        // void drawImage(int *pixels, int xSize, int ySize, int xPos, int yPos);
+        void drawImage(int *pixels, int xSize, int ySize, int xPos, int yPos);
         void clearAllDisplays();
         void setDisplayBrightness(int brightness);
         void updateDisplays();

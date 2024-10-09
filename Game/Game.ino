@@ -3,15 +3,16 @@
 #include "src/Pong.h"
 #include "src/Game.h"
 #include "src/SpaceGame.h"
+#include "src/DinoGame.h"
 
 const bool showStartupSequence = true;
-const int numGames = 3;
+const int numGames = 4;
 
-int activeGameIndex = 1;
+int activeGameIndex = 3;
 unsigned long timeOld;
 
 Engine engine = Engine();
-Game *game = new PongGame();
+Game *game = new DinoGame();
 
 void setup()
 {
@@ -91,6 +92,10 @@ void switchGame()
   else if (activeGameIndex == 2)
   {
     game = new SpaceGame;
+  }
+  else if (activeGameIndex == 3)
+  {
+    game = new DinoGame;
   }
 }
 
